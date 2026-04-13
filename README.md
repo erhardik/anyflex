@@ -1,58 +1,112 @@
 # AnyFlex - Industrial Flex & Signage Printing
 
-Industrial Flex Banner Printing, Hoardings, Signage, Banner Stands, LED Boards & Foam Sheets in Ahmedabad.
+![AnyFlex](https://img.shields.io/badge/AnyFlex-Printing-orange)
+![Status](https://img.shields.io/badge/Status-Live-brightgreen)
+![Website](https://img.shields.io/badge/Website-erhardik.github.io/anyflex-blue)
+
+**Premium Flex Banner Printing, Hoardings, Signage & Office Branding Solutions in Ahmedabad**
+
+---
 
 ## Live Website
-https://anyflex.in
 
-## Development
+🔗 **https://erhardik.github.io/anyflex**
 
-To run locally, simply open `index.html` in a browser.
+*(Custom domain: anyflex.in - Coming soon)*
+
+---
+
+## About
+
+AnyFlex is a professional printing services website offering high-quality industrial printing solutions for businesses across Ahmedabad and Gujarat. We specialize in large format printing with complete end-to-end service - from design to installation.
+
+### Our Promise
+> **"Give us space. We handle everything from measurement to final installation."**
+
+---
+
+## Services
+
+| Service | Starting Price |
+|---------|---------------|
+| Flex Banner Printing | ₹10/sq.ft |
+| Hoardings & Signage | ₹15/sq.ft |
+| Foam Sheet Printing | ₹50/sq.ft |
+| Office Branding | ₹25/sq.ft |
+| Banner Stands | ₹35/sq.ft |
+| One Way Vision | ₹60/sq.ft |
+| Promotional Gates | ₹100/sq.ft |
+| LED Sign Boards | ₹1,300/sq.ft |
+| Acrylic Sheets | ₹85/sq.ft |
+
+---
+
+## Features
+
+- 📱 Fully Responsive Design
+- 🖼️ Interactive Hero Carousel (8 images)
+- 🖱️ Mouse-Reactive Floating Cards
+- 💬 WhatsApp Integration
+- 📝 Online Inquiry Form
+- 🖼️ Project Gallery with Filters
+- ⚡ Smooth Animations & Transitions
+- 🎨 Modern Dark Industrial Theme
+
+---
+
+## Tech Stack
+
+- **HTML5** - Semantic markup
+- **CSS3** - Custom styling with CSS Grid/Flexbox
+- **JavaScript** - Vanilla JS (no frameworks)
+- **Google Fonts** - Inter & Oswald
+- **GitHub Pages** - Free hosting
+
+---
+
+## Pages
+
+- `index.html` - Home page
+- `services/` - 9 service pages
+- `gallery.html` - Project gallery
+- `process.html` - How we work
+- `contact.html` - Contact & inquiry form
+
+---
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/erhardik/anyflex.git
+
+# Open in browser
+cd anyflex
+# Open index.html
+```
+
+---
 
 ## Deployment
 
-This site is deployed on GitHub Pages.
+This site is deployed on **GitHub Pages**.
 
-### Steps to Deploy:
+To deploy:
+1. Push to GitHub
+2. Go to Settings → Pages
+3. Select: Source = main branch, / (root)
+4. Save - Live in ~2 minutes
 
-1. **Create GitHub Repository**
-   - Go to https://github.com and create account
-   - Click "New repository"
-   - Name it `anyflex`
-   - Make it Public
-
-2. **Push Code**
-   ```bash
-   git remote add origin https://github.com/YOUR-USERNAME/anyflex.git
-   git branch -M main
-   git push -u origin main
-   ```
-
-3. **Enable GitHub Pages**
-   - Go to repository Settings > Pages
-   - Source: Deploy from branch
-   - Branch: main, / (root)
-   - Click Save
-
-4. **Custom Domain**
-   - Buy domain from anyflex.in
-   - In GitHub Pages settings, add custom domain
-   - Add DNS records:
-     - A records: 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153
-     - CNAME: www → username.github.io
-
-## Services
-- Flex Banner Printing (₹10/sq.ft)
-- Hoardings & Signage (₹15/sq.ft)
-- Foam Sheet Printing (₹50/sq.ft)
-- Office Branding (₹25/sq.ft)
-- Banner Stands (₹35/sq.ft)
-- One Way Vision (₹60/sq.ft)
-- Promotional Gates (₹100/sq.ft)
-- LED Sign Boards (₹1,300/sq.ft)
-- Acrylic Sheets (₹85/sq.ft)
+---
 
 ## Contact
-- Phone: 88667499627
-- WhatsApp: wa.me/9188667499627
-- Location: Ahmedabad, Gujarat
+
+📞 **Phone:** 88667499627  
+💬 **WhatsApp:** [wa.me/9188667499627](https://wa.me/9188667499627)  
+📍 **Location:** Ahmedabad, Gujarat, India
+
+---
+
+## License
+
+© 2026 AnyFlex. All rights reserved.
