@@ -333,8 +333,6 @@ p {
   height: 48px;
   width: auto;
   border-radius: var(--radius-sm);
-  background-color: transparent;
-  filter: brightness(1) saturate(0) sepia(1) hue-rotate(70deg) saturate(2);
 }
 
 .nav {
