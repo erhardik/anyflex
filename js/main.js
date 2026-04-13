@@ -308,10 +308,40 @@ document.addEventListener('DOMContentLoaded', function() {
   const heroFloats = document.querySelector('.hero-floats');
   if (heroFloats) {
     const cards = heroFloats.querySelectorAll('.hero-float');
-    const interactionRadius = 120;
+    const interactionRadius = 100;
     
-    document.addEventListener('mousemove', function(e) {
-      cards.forEach(function(card) {
+    cards.forEach(function(card) {
+      let pulseInterval = null;
+      let isNear = false;
+      
+      function startPulse() {
+        if (pulseInterval) clearInterval(pulseInterval);
+        isNear = true;
+        card.classList.add('active');
+        
+        let phase = 0;
+        pulseInterval = setInterval(function() {
+          if (!isNear) {
+            clearInterval(pulseInterval);
+            card.style.transform = '';
+            return;
+          }
+          phase += 0.1;
+          if (phase < Math.PI) {
+            const scale = 1 + (0.2 * Math.sin(phase));
+            card.style.transform = 'scale(' + scale + ')';
+          }
+        }, 50);
+      }
+      
+      function stopPulse() {
+        isNear = false;
+        if (pulseInterval) clearInterval(pulseInterval);
+        card.classList.remove('active');
+        card.style.transform = '';
+      }
+      
+      document.addEventListener('mousemove', function(e) {
         const rect = card.getBoundingClientRect();
         const cardCenterX = rect.left + rect.width / 2;
         const cardCenterY = rect.top + rect.height / 2;
@@ -321,21 +351,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const distance = Math.sqrt(dx * dx + dy * dy);
         
         if (distance < interactionRadius) {
-          const pushX = (dx / distance) * (interactionRadius - distance) * 0.3;
-          const pushY = (dy / distance) * (interactionRadius - distance) * 0.3;
-          card.style.transform = 'translate(' + (-pushX) + 'px, ' + (-pushY) + 'px) scale(1.05)';
-          card.style.zIndex = '10';
+          if (!isNear) startPulse();
         } else {
-          card.style.transform = '';
-          card.style.zIndex = '';
+          if (isNear) stopPulse();
         }
-      });
-    });
-    
-    heroFloats.addEventListener('mouseleave', function() {
-      cards.forEach(function(card) {
-        card.style.transform = '';
-        card.style.zIndex = '';
       });
     });
   }
