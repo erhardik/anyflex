@@ -543,12 +543,11 @@ p {
   top: 50%;
   transform: translateY(-50%);
   width: 45%;
-  max-width: 500px;
-  height: 400px;
+  max-width: 550px;
   z-index: 3;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 15px;
   padding: 20px;
 }
@@ -559,6 +558,7 @@ p {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  min-height: 90px;
 }
 
 .hero-float:hover {
@@ -589,6 +589,11 @@ p {
 .hero-float-5 {
   background: url('../images/services/banner-stands.jpg') center/cover no-repeat;
   animation: subtle-float 6s ease-in-out infinite 2s;
+}
+
+.hero-float-6 {
+  background: url('../images/services/office-branding.jpg') center/cover no-repeat;
+  animation: subtle-float 7s ease-in-out infinite 2.5s;
 }
 
 /* Responsive - hide on mobile */
