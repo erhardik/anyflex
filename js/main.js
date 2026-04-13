@@ -304,44 +304,144 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(nextSlide, slideInterval);
   }
   
-  // --- Hero Float Cards Mouse Interaction ---
+  // --- Hero Float Cards Mouse Interaction & Drag ---
   const heroFloats = document.querySelector('.hero-floats');
   if (heroFloats) {
     const cards = heroFloats.querySelectorAll('.hero-float');
     const interactionRadius = 100;
+    const containerRect = heroFloats.getBoundingClientRect();
     
     cards.forEach(function(card) {
-      let pulseInterval = null;
+      let isDragging = false;
       let isNear = false;
+      let pulseInterval = null;
+      let offsetX, offsetY;
+      let originalRight, originalTop;
+      let currentRight, currentTop;
+      
+      // Store original positions
+      originalRight = parseInt(getComputedStyle(card).right) || 0;
+      originalTop = parseInt(getComputedStyle(card).top) || 0;
+      currentRight = originalRight;
+      currentTop = originalTop;
       
       function startPulse() {
         if (pulseInterval) clearInterval(pulseInterval);
+        if (isDragging) return;
         isNear = true;
         card.classList.add('active');
         
         let phase = 0;
         pulseInterval = setInterval(function() {
-          if (!isNear) {
-            clearInterval(pulseInterval);
-            card.style.transform = '';
+          if (!isNear || isDragging) {
+            if (!isNear) {
+              clearInterval(pulseInterval);
+              card.style.transform = '';
+            }
             return;
           }
-          phase += 0.1;
-          if (phase < Math.PI) {
-            const scale = 1 + (0.2 * Math.sin(phase));
-            card.style.transform = 'scale(' + scale + ')';
-          }
+          phase += 0.15;
+          const scale = 1 + (0.2 * Math.sin(phase));
+          card.style.transform = 'scale(' + scale + ')';
         }, 50);
       }
       
       function stopPulse() {
+        if (isDragging) return;
         isNear = false;
         if (pulseInterval) clearInterval(pulseInterval);
         card.classList.remove('active');
-        card.style.transform = '';
+        if (!isDragging) card.style.transform = '';
       }
       
+      // Mouse down - start drag
+      card.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        isDragging = true;
+        card.style.cursor = 'grabbing';
+        card.style.zIndex = '20';
+        if (pulseInterval) clearInterval(pulseInterval);
+        card.classList.remove('active');
+        
+        const rect = card.getBoundingClientRect();
+        offsetX = e.clientX - rect.right;
+        offsetY = e.clientY - rect.top;
+        
+        card.style.transition = 'none';
+      });
+      
+      // Mouse move
       document.addEventListener('mousemove', function(e) {
+        if (!isDragging || isDragging) {
+          cards.forEach(function(c) {
+            const rect = c.getBoundingClientRect();
+            const cardCenterX = rect.left + rect.width / 2;
+            const cardCenterY = rect.top + rect.height / 2;
+            
+            const dx = e.clientX - cardCenterX;
+            const dy = e.clientY - cardCenterY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < interactionRadius && c !== card) {
+              if (!c.classList.contains('active')) {
+                c.classList.add('active');
+                startPulseForCard(c);
+              }
+            }
+          });
+        }
+        
+        if (!isDragging) return;
+        
+        const heroRect = heroFloats.getBoundingClientRect();
+        const cardWidth = card.offsetWidth;
+        const cardHeight = card.offsetHeight;
+        
+        // Calculate new position relative to container
+        let newRight = heroRect.right - e.clientX + offsetX;
+        let newTop = e.clientY - heroRect.top - offsetY;
+        
+        // Constrain within container
+        newRight = Math.max(0, Math.min(newRight, heroRect.width - cardWidth));
+        newTop = Math.max(0, Math.min(newTop, heroRect.height - cardHeight));
+        
+        card.style.right = 'auto';
+        card.style.top = newTop + 'px';
+        card.style.left = (heroRect.width - newRight - cardWidth) + 'px';
+        
+        currentRight = newRight;
+        currentTop = newTop;
+      });
+      
+      // Mouse up - stop drag
+      document.addEventListener('mouseup', function() {
+        if (isDragging) {
+          isDragging = false;
+          card.style.cursor = 'grab';
+          card.style.zIndex = '';
+          card.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease';
+        }
+      });
+      
+      // Pulse function for other cards
+      function startPulseForCard(c) {
+        if (pulseInterval && c === card) return;
+        let phase = 0;
+        let interval = setInterval(function() {
+          if (!c.classList.contains('active')) {
+            clearInterval(interval);
+            return;
+          }
+          phase += 0.15;
+          const scale = 1 + (0.2 * Math.sin(phase));
+          c.style.transform = 'scale(' + scale + ')';
+        }, 50);
+      }
+      
+      // Check proximity
+      document.addEventListener('mousemove', function(e) {
+        if (isDragging) return;
+        
         const rect = card.getBoundingClientRect();
         const cardCenterX = rect.left + rect.width / 2;
         const cardCenterY = rect.top + rect.height / 2;
