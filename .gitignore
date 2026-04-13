@@ -1,0 +1,15 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.swp
+
+# Ignore generate-images.html (dev tool)
+generate-images.html
+
+# Ignore image generation guide
+images/IMAGE-GENERATION-GUIDE.md
