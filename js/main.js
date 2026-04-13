@@ -304,6 +304,42 @@ document.addEventListener('DOMContentLoaded', function() {
     setInterval(nextSlide, slideInterval);
   }
   
+  // --- Hero Float Cards Mouse Interaction ---
+  const heroFloats = document.querySelector('.hero-floats');
+  if (heroFloats) {
+    const cards = heroFloats.querySelectorAll('.hero-float');
+    const interactionRadius = 120;
+    
+    document.addEventListener('mousemove', function(e) {
+      cards.forEach(function(card) {
+        const rect = card.getBoundingClientRect();
+        const cardCenterX = rect.left + rect.width / 2;
+        const cardCenterY = rect.top + rect.height / 2;
+        
+        const dx = e.clientX - cardCenterX;
+        const dy = e.clientY - cardCenterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < interactionRadius) {
+          const pushX = (dx / distance) * (interactionRadius - distance) * 0.3;
+          const pushY = (dy / distance) * (interactionRadius - distance) * 0.3;
+          card.style.transform = 'translate(' + (-pushX) + 'px, ' + (-pushY) + 'px) scale(1.05)';
+          card.style.zIndex = '10';
+        } else {
+          card.style.transform = '';
+          card.style.zIndex = '';
+        }
+      });
+    });
+    
+    heroFloats.addEventListener('mouseleave', function() {
+      cards.forEach(function(card) {
+        card.style.transform = '';
+        card.style.zIndex = '';
+      });
+    });
+  }
+  
   // --- Lazy Load Images (if any) ---
   var lazyImages = document.querySelectorAll('img[data-src]');
   
